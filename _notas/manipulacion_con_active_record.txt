@@ -1,0 +1,98 @@
+# Iniciar la consola de Rails
+
+rails console
+
+o
+
+rails c
+
+# Si tenemos un modelo Track con los atributos title, album y artist, podemos realizar varias operaciones sobre ellos:
+
+# Saber la cantidad de registros que tenemos
+Track.count
+
+# Obtener el primer elemento
+cancion = Track.first
+
+
+# Acceder a sus atributos usando el nombre de los mismos
+cancion.title
+cancion.album
+cancion.artist
+
+# Podemos editar los valores usando los setters del objeto
+
+cancion.album = 'News of the World'
+
+# Para guardar los cambios en la base de datos
+
+cancion.save
+
+# Crear y guardar en la base de datos una nueva canción
+
+Track.create title: 'Whole Lotta love', artist: 'Led Zeppelin', album: 'Led Zeppelin II'
+
+# Obtener el último registro
+
+Track.last
+
+# Buscar elementos por su id
+
+Track.find 3
+
+# También podemos crear nuevos registros con .new y, usando los setters del objeto, establecer sus valores
+
+nueva_cancion = Track.new
+nueva_cancion.title = 'Heartbreaker'
+nueva_cancion.album = 'Led Zeppelin II'
+nueva_cancion.artist = 'Led Zeppelin'
+
+# No olvidemos guarda en la base de datos
+
+nueva_cancion.save
+
+# Podemos crear una nueva canción pasándole un hash con los atributos que queremos
+
+informacion = { title: 'Black dog', artist: 'Led Zeppelin', album: 'Led Zeppelin IV'}
+nueva_cancion = Track.new informacion
+nueva_cancion.save
+
+
+# Podemos buscar todos los registros que cumplen con cierta condicion
+
+canciones = Track.where(artist: 'Led Zeppelin')
+
+# Esto nos regresa una relacion de ActiveRecord
+# Esta relacion soporta muchas operaciones que soportan los arreglos
+
+# Saber cuántos elementos hay
+canciones.size
+
+# Extraer el primero y el último
+canciones.first
+canciones.last
+
+# Acceder a sus elementos por su posición
+canciones[0]
+
+# Si queremos encontar solo el primer registro que cumple con las
+# condiciones, podemos usar find_by
+
+cancion = Track.find_by(artist: 'Led Zeppelin')
+
+# where nos trae una relación, find_by nos trae un único elemento
+# si where no encuentra coincidencias, regresa un []
+# si find_by no encuentra coincidencias, regresa un nil
+
+# Podemos actualizar los valores con el metodo update que espera un hash
+
+cancion = Track.first
+
+valores = { title: 'A new song'}
+cancion.update valores
+
+# Update regresa true o false dependiendo de si se pudo actualizar
+
+# Por ultimo, podemos borrar un elemento de la base de datos con destroy
+
+cancion.destroy
